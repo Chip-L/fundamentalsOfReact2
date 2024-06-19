@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 
 export const useGetCat = () => {
   const [url, setUrl] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const getUrl = async () => {
+    setIsLoading(true);
     setUrl(null);
     setError(null);
 
@@ -13,8 +15,10 @@ export const useGetCat = () => {
 
     if (response.ok) {
       setUrl(json[0].url);
+      setIsLoading(false);
     } else {
       setError(`Error: ${json.message}`);
+      setIsLoading(false);
     }
   };
 
@@ -24,6 +28,7 @@ export const useGetCat = () => {
 
   return {
     url,
+    isLoading,
     error,
     getCat: getUrl,
   };

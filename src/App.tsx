@@ -2,13 +2,13 @@ import "./App.css";
 import { useGetCat } from "./useGetCat";
 
 function App() {
-  const { url, error, getCat } = useGetCat();
+  const { url, isLoading, error, getCat } = useGetCat();
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", width: "800px" }}>
+    <div className="container">
       {error ? (
         <p style={{ color: "red" }}>{error}</p>
-      ) : url ? (
+      ) : url && !isLoading ? (
         <img src={url} alt="cat image" />
       ) : (
         <p>Loading...</p>
